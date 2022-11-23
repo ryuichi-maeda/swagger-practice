@@ -1,0 +1,130 @@
+openapi: 3.0.3
+
+info:
+  title: Open API Tutorial
+  description: This is a tutorial of Open API
+  version: 0.0.0
+
+servers:
+  - url: https://example.com
+    description: プロダクション環境
+  - url: http://{host}:{port}
+    description: 開発環境
+    variables:
+      host:
+        default: localhost
+      port:
+        default: "8003"
+
+paths:
+  /api/v0/users:
+    get:
+      operationId: getUsers
+      summary: ユーザ一覧の取得
+      description: ユーザ一覧の取得
+      parameters: 
+      - name: email
+        in: query
+        description: メールアドレス
+        schema:
+          type: string
+      - name: name
+        in: query
+        description: 名前
+        schema:
+          type: string
+      responses: 
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                title: Persons
+                type: array
+                items:
+                  title: Person
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      description: ユーザID
+                      example: chellwo
+                    email:
+                      type: string
+                      description: メールアドレス
+                      example: chellwo@example.com
+                    name:
+                      type: string
+                      description: 名前
+                      example: chellwo
+    post:
+      operationId: createUser
+      summary: ユーザ作成
+      description: ユーザ作成
+      parameters:
+      - name: email
+        in: query
+        description: メールアドレス
+        schema:
+          type: string
+        required: true
+      - name: name
+        in: query
+        description: 名前
+        schema:
+          type: string
+        required: true
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                title: Person
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: ユーザID
+                    example: chellwo
+                  email:
+                    type: string
+                    description: メールアドレス
+                    example: chellwo@example.com
+                  name:
+                    type: string
+                    description: 名前
+                    example: chellwo
+  /api/v0/users/{id}:
+    get:
+      operationId: getUser
+      summary: ユーザ取得
+      description: ユーザ取得
+      parameters:
+      - name: id
+        in: path
+        description: ユーザID
+        schema:
+          type: string
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                title: Person
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: ユーザID
+                    example: chellwo
+                  email:
+                    type: string
+                    description: メールアドレス
+                    example: chellwo@example.com
+                  name:
+                    type: string
+                    description: 名前
+                    example: chellwo
